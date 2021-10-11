@@ -61,7 +61,68 @@
 <br>
 
 ## 인덱스(INDEX)를 사용하면 좋은 경우
-1. ### 규모가 작지 않은 테입르
+1. ### 규모가 작지 않은 테이블
 2. ### INSERT, UPDATE, DELETE가 자주 발생하지 않는 컬럼
 3. ### JOIN이나 WHERE 또는 ORDER BY에 자주 사용되는 걸럼
 4. ### 데이터의 중복도가 낮은 컬럼
+<br>
+
+인덱스 만드는 방법 https://coding-factory.tistory.com/419
+<br>
+
+---
+<br>
+
+## 인덱스 자료구조
+
+## 해시 테이블
+<br>
+
+### 해시 테이블은 (Key, Value)로 데이터를 저장하는 자료구조 중 하나로 빠른 데이터 검색이 필요할 때 유용하다. 해시 테이블은 Key값을 이용해 고유한 index를 생성하여 그 index에 저장된 값을 꺼내오는 구조이다.
+<br>
+
+### 하지만 DB 인덱스에서 해시 테이블이 사용되는 경우는 제한적인데, 그러한 이유는 해시가 등호(=) 연산에만 특화되었기 때문이다. 해시 함수는 값이 1이라도 달라지면 완전히 다른 해시 값을 생성하는데, 이러한 특성에 의해 부등호 연산(>, <)이 자주 사용되는 데이터베이스 검색을 위해서는 해시 테이블이 적합하지 않다.
+<br>
+
+### 즉, 예를 들면 "나는"으로 시작하는 모든 데이터를 검색하기 위한 쿼리문은 인덱스의 혜택을 전혀 받지 못하게 된다. 이러한 이유로 데이터베이스의 인덱스에서는 B+Tree가 일반적으로 사용된다.
+![image](https://user-images.githubusercontent.com/71022555/136761110-1885a17a-3fd0-42e6-a272-c1e7779ce8f4.png)
+
+## B Tree 인덱스
+### 밸런스드 트리 인덱스 구조입니다. 그리고 B TREE 인덱스 중에서도 가장 많이 사용하는것은 B*TREE 와 B+TREE 구조를 가장 많이 사용되는 인덱스의 구조입니다.
+<br>
+
+![image](https://user-images.githubusercontent.com/71022555/136760154-682bb6a3-af54-4336-b8c9-c6dc53cfff6d.png)
+## B-Tree
+![image](https://user-images.githubusercontent.com/71022555/136760080-f3c139f9-5b97-424a-b2fa-0ac47e8587fd.png)
+## 특징
+- ###  Binary search tree와 유사하지만, 한 노드 당 자식 노드가 2개 이상 가능하다. 
+- ### B-tree의 장점 한 가지는 '어떤 값에 대해서도 같은 시간에 결과를 얻을 수 있다'인데, 이를 '균일성'이라고 한다.
+- ### 균형 트리
+![image](https://user-images.githubusercontent.com/71022555/136760349-c67fcc33-46c3-4284-8da8-041e6152f9c4.png)
+- ### 그러나, B-tree 처음 생성 당시는 균형 트리이지만 테이블 갱신(INSERT/UPDATE/DELETE)의 반복을 통해 서서히 균형이 깨지고, 성능도 악화된다. 
+- ### 어느 정도 자동으로 균형을 회복하는 기능이 있지만, 갱신 빈도가 높은 테이블에 작성되는 인덱스 같은 경우 인덱스 재구성을 해서 트리의 균형을 되찾는 작업이 필요하다. 
+<br>
+
+--- 
+<br>
+
+## B+Tree
+### B+tree는 B-tree의 확장개념으로, B-tree의 경우, internal 또는 branch 노드에 key와 data를 담을 수 있다. 하지만, B+tree의 경우 브랜치 노드에 key만 담아두고, data는 담지 않는다. 오직 리프 노드에만 key와 data를 저장하고, 리프 노드끼리 Linked list로 연결되어 있다. 
+<br>
+
+### 장점
+<br>
+
+1. ### 리프 노드를 제외하고 데이터를 담아두지 않기 때문에 메모리를 더 확보함으로써 더 많은 key들을 수용할 수 있다. 하나의 노드에 더 많은 key들을 담을 수 있기에 트리의 높이는 더 낮아진다.(cache hit를 높일 수 있음)
+2. ### 풀 스캔 시, B+tree는 리프 노드에 데이터가 모두 있기 때문에 한 번의 선형탐색만 하면 되기 때문에 B-tree에 비해 빠르다. B-tree의 경우에는 모든 노드를 확인해야 한다. 
+InnoDB에서 사용된 B+tree
+![image](https://user-images.githubusercontent.com/71022555/136760834-900144ec-0aca-42a2-87a5-66690bb063bb.png)
+
+같은 레벨의 노드들끼리는 Linked List가 아닌 Double Linked List를 사용했고, 자식 노드로는 Single Linked List로 연결되어있다.
+<br>
+
+---
+<br>
+
+## B-Tree VS B+tree
+![image](https://user-images.githubusercontent.com/71022555/136761284-4db94caf-1171-4c40-be8f-66d41ac7e254.png)
