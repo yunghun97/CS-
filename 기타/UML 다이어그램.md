@@ -59,7 +59,7 @@
 
 ![image](https://user-images.githubusercontent.com/71022555/141676742-937f9f4c-c00b-48ad-a0e2-b072678ffaca.png)  
 
-#### 설명 : 프린터는 컴퓨터에 연결해서 사용할 수 있으며, 다른 컴퓨터에 연결해서 사용할 수도 있다.
+#### 설명 : 프린터는 컴퓨터에 연결해서 사용할 수 있으며, 또는 다른 컴퓨터에 연결해서 사용할 수도 있다.
 ```java
 public class Computer{
     private List<Printer> printer;
