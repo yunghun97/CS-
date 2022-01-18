@@ -1,22 +1,3 @@
-# JPA
-- 기존의 반복 코드는 물론이고, 기본적인 SQL도 JPA가 직접 만들어서 실행해준다.
-- JPA를 사용하면, SQL과 데이터 중심의 설계에서 객체 중심의 설계로 패러다임을 전환을 할 수 있다.
-- JPA를 사용하면 개발 생산성을 크게 높일 수 있다.  
-
-
-### JPA 설정
-```
-spring.datasource.url=jdbc:h2:tcp://localhost~~
-spring.datasource.driver-class-name=org.h2.Driver
-spring.jpa.show-sql=true  -> jpa가 날리는 sql 표시
-spring.jpa.hibernate.ddl-auto=none -> 자동으로 테이블 생성x 
-```
-### spring.jpa.hibernate.ddl-auto
-- none: No change to the database structure.
-- update: Hibernate changes the database according to the given Entity structures. - 변경된 스키마만 적용한다.
-- validate: 변경된 스키마가 있는지 확인만 한다. 만약 변경이 있다면 Application을 종료한다.
-- create: Creates the database every time, but don’t drop it when close. - 시작될 때만 drop하고 다시 생성한다.
-- create-drop: Creates the database then drops it when the SessionFactory closes. - 시작과 종료에서 모두 drop한다.
 
 [JPA CRUD](#JPA-CRUD)  
 [상속](#상속)  
@@ -181,8 +162,79 @@ order.getOrderDate(); // Order를 사용하는 시점에 SELECT ORDER SQL
 - Meber를 사용할 때마다 Order를 함께 사용하면 이렇게 한 테이블씩 조회하는것보다 Member를 조회하는 시점에 SQL 조인을 사용해서 Member와 Order를 함께 조회하는 것이 효과적이다.
 - JPA는 연관된 객체를 즉시 함께 조회할지 아니면 실제 사용되는 시점에 지연해서 조회할지 간단한 설정으로 정의할 수 있다.  
 
-# 비교
+## 비교
+- 데이터베이스는 기본 키의 값으로 각 fow를 구분한다.
+- 반면 객체는 동일성(identity)비교와 동등성(equality)비교라는 두 가지 비교 방법이 있다.
+    - 동일성 비교는 == 비교다. 객체 인스턴스의 주소 값을 비교한다.
+    - 동동성 비교는 equals() 메소드를 사용하여 객체 내부의 값을 비교한다.
+```java
+class MemberDAO{
+    public Member getMember(String memberId){
+        String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+        // JDBC API, SQL 실행
+        return new Member(...);
+    }
+}
 
+String memberId = "50";
+Member member1 = memberDAO.getMemeber(memberId);
+Member member2 = memberDAO.getMemeber(memberId);
+
+member1 == member2; // 동일성 비교 -> 서로 다르다.
+
+Member member1 = list.get(0);
+Member member2 = list.get(0);
+
+member1 == member2; // 동일성 비교 -> 같다 -> 객체를 컬렉션에 보관
+```
+## JPA와 비교
+- JPA는 같은 트랙잭션일 때 같은 객체가 조회되는 것을 보장한다.
+```java
+String memberId = "50";
+Member member1 = memberDAO.getMemeber(memberId);
+Member member2 = memberDAO.getMemeber(memberId);
+
+member1 == member2; // 동일성 비교 -> JPA에서는 같다.
+```
+
+## 정리
+- ### 정교한 객체 모델링을 할수록 패러다임의 불일치 문제가 더 커진다.
+- ### 그 틈을 메우기 위해 개발자가 소모해야 하는 비용이 많이지므로 객체 모델링 중심에서 데이터 중심의 모델로 변해간다.
+- ### JPA는 패러다임의 불일치 문제를 해결해주고 정교한 객체 모델링을 유지하게 도와줍니다.
+  
+
+# JPA
+- ### 자바 진영의 ORM 기술 표준으로 기존의 반복 코드는 물론이고, 기본적인 SQL도 JPA가 직접 만들어서 실행해준다.
+- ### JPA를 사용하면, SQL과 데이터 중심의 설계에서 객체 중심의 설계로 패러다임을 전환을 할 수 있다.
+- ### JPA를 사용하면 개발 생산성을 크게 높일 수 있다.  
+![JPA 동작 방식](https://user-images.githubusercontent.com/71022555/149893183-7786030b-d91b-4d16-8582-e688ef898401.png)
+애플리케이션과 JDBC 사이에서 동작한다.
+# ORM
+- ### 객체와 관계형 데이터베이스를 매핑한다는 뜻
+- ### ORM 프레임워크는 객체와 테이블을 매핑해서 패러다임의 불일치 문제를 개발자 대신 해결해준다.
+- ### ex) INSERT SQL을 직접 작성하는 것이 아니라 객체를 마차 자바 컬렉션에 저장하듯이 ORM 프레임워크에 저장하면 ORM 프레임워크가 적절한 INSERT SQL을 생성해서 데이터베이스에 객체를 저장해준다.  
+
+```java
+jpa.persist(member); // 저장
+```
+![JPA 저장](https://user-images.githubusercontent.com/71022555/149894597-5458dbcc-6ca2-41f2-94d6-4f4d1d5e6343.png)
+```java
+Member member = jpa.find(memberId); // 조회
+```
+![JPA 조회](https://user-images.githubusercontent.com/71022555/149894442-3f2f1a30-e914-4882-9d9f-682d0a14e0e6.png)
+### JPA 설정
+```
+spring.datasource.url=jdbc:h2:tcp://localhost~~
+spring.datasource.driver-class-name=org.h2.Driver
+spring.jpa.show-sql=true  -> jpa가 날리는 sql 표시
+spring.jpa.hibernate.ddl-auto=none -> 자동으로 테이블 생성x 
+```
+### spring.jpa.hibernate.ddl-auto
+- none: No change to the database structure.
+- update: Hibernate changes the database according to the given Entity structures. - 변경된 스키마만 적용한다.
+- validate: 변경된 스키마가 있는지 확인만 한다. 만약 변경이 있다면 Application을 종료한다.
+- create: Creates the database every time, but don’t drop it when close. - 시작될 때만 drop하고 다시 생성한다.
+- create-drop: Creates the database then drops it when the SessionFactory closes. - 시작과 종료에서 모두 drop한다.
 <!-- ### ORM (Object, Relational, Mapping)
 - annotation으로 mapping한다.
 ```java
