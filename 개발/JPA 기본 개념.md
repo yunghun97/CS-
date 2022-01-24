@@ -1,7 +1,10 @@
 
 [JPA CRUD](#JPA-CRUD)  
 [상속](#상속)  
-
+[JPA와 연관관계](#JPA와-연관관계)  
+[JPA를 사용해야 하는 이유](#JPA를-사용해야-하는-이유)  
+[매핑](#매핑)  
+[JPQL](#JPQL)
 
 ## JPA CRUD
 ### 저장 기능
@@ -384,8 +387,25 @@ public class Member {
 ## 트랜잭션 관리
 - JPA는 트랜잭션 안에서 데이터를 변경해야 한다.(안 그러면 예외 발생)
 - 엔티티 매니저에서 트랜잭션 API를 받아와서 사용한다.
-
-
+  
+## JPQL
+- JPA는 검색을 할 때도 테이블이 아닌 엔티티 객체를 대상으로 검색한다.
+- 검색조건이 포함된 SQL을 사용하는데 이를 JPQL이라는 쿼리 언어로 해결한다.
+- JPQL : 엔티티 객체를 대상으로 쿼리한다. 즉 클래스와 필드를 대상으로 쿼리한다.
+- SQL : 데이터베이스 테이블을 대상으로 쿼리한다.
+- JPQL은 대소문자를 구분한다.
+```SQL
+select m from Member m
+/* from Member은 Member 테이블이 아니라 엔티티 객체를 말하는 것이다.
+```
+### JPQL 사용
+1. em.createQuery(JPQL, 반환타입) 메소드를 실행해서 쿼리 객체를 작성한 후
+2. 쿼리객체의 getResultList 메소드를 호출하면 된다.
+ex)
+```java
+em.createQuery("select m from Member m", Member.class).getResultList();
+// 이를 JPA가 JPQL을 분석해서 SELECT M.ID, M.NAME, M.AGE FROM MEMBER M 으로 SQL 생성 후 데이터베이스에서 데이터를 조회한다.
+```
 
 
 
