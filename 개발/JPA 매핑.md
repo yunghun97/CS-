@@ -69,7 +69,7 @@ em.persist(test);
   
 ## INDENTITY 전략
 기본 키 생성을 데이터 베이스에 위임하는 전략으로 MYSQL, DB2, SQL SERVER 에서 사용한다.
-- AUTO_INCREMENT 사용처럼 데이터베이스에 값을 저장하고 나서야 기본 킥밧을 구할 수 있을 떄 사용한다.
+- AUTO_INCREMENT 사용처럼 데이터베이스에 값을 저장하고 나서야 기본 키값을 구할 수 있을 떄 사용한다.
 ```java
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
