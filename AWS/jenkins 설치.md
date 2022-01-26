@@ -1,47 +1,47 @@
 # AWS에 jenkins 설치법
 ### Ubuntu 20.04 LTS 기준
 1. 
-```c
+```bash
 sudo apt-get update
 ```
 2.
-```c
+```bash
 sudo apt-get install openjdk-8-jdk
 ```
 3.
-```c
+```bash
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 ```
 4.
-```c
+```bash
 sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 ```
 5.
-```c
+```bash
 sudo apt-get update
 ```
 6.
-```c
+```bash
 sudo apt-get install jenkins
 ```
 7.
-```c
+```bash
 sudo apt install git
 ```
 
 8. 젠킨스 실행
-```c
+```bash
 sudo service jenkins start
 sudo service jenkins status // 상태 확인
 ```
 9. 포트 변경
-```c
+```bash
 sudo vim /etc/default/jenkins
 
 HTTP_PORT=8080  // 원하는 포트로 변경
 ```
 10. 재실행
-```c
+```bash
 sudo systemctl daemon-reload
 sudo service jenkins restart 
 ```
