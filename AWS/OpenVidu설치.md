@@ -96,7 +96,7 @@ cd openvidu/openvidu-server/src/main/resources/
 ```
 b. ssl 인증서 복붙
 ```bash
-cp /etc/letsencrypt/live/i6b201.p.ssafy.io/i6b201.p.ssafy.io .   # /etc~ 에 있는 파일을  .(현재 바라보고 있는 위치)에 복사
+cp /etc/letsencrypt/live/i6b201.p.ssafy.io/i6b201.p.ssafy.io.p12 .   # /etc~ 에 있는 파일을  .(현재 바라보고 있는 위치)에 복사
 ```
 12. application.properties 수정
 ```bash

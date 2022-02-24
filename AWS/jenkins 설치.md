@@ -49,3 +49,15 @@ sudo service jenkins restart
 ```
 httP://[aws주소]:포트번호
 ```
+
+
+## HTTPS 적용하기
+
+1. 인증서 생성 하기 letsencrypt 사용
+```
+```
+
+2. 
+```bash
+nano /etc/sysconfig/jenkins
+```
