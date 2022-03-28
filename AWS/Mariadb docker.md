@@ -45,10 +45,9 @@ default-character-set = utf8mb4
 default-character-set = utf8mb4
 
 [mysqld]
-collation-server = utf8mb4_unicode_ci
-init-connect='SET NAMES utf8mb4'
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
 default-time-zone='+9:00'
 ```
 4. 재실행
