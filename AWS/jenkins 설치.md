@@ -47,17 +47,18 @@ sudo service jenkins restart
 ```
 11. 젠킨스 접속
 ```
-httP://[aws주소]:포트번호
+http://[aws주소]:포트번호
 ```
 
 
-## HTTPS 적용하기
-
-1. 인증서 생성 하기 letsencrypt 사용
-```
-```
-
-2. 
+## Docker로 설치시 Volume Mount
+- 마운트를 잡아야 이미지 컨테이너와 배포 결과물 파일을 공유 할 수 있다.
+### JAVA 8로 설치
 ```bash
-nano /etc/sysconfig/jenkins
+docker run -d -p 9090:8080 -p 50000:50000 --restart=always -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -u root jenkins/jenkins
+```
+
+### JAVA 11로 설치
+```bash
+docker run -d -p 9090:8080 -p 50000:50000 --restart=always -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -u root jenkins/jenkins:lts-jdk1
 ```
