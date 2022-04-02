@@ -5,6 +5,8 @@
 - Gradle
 - Lettuce 사용
 
+## 참고 문서
+> https://docs.spring.io/spring-data/redis/docs/current/reference/html/
 ### 1. spring redis 추가하기
 - application.properties
 ```bash
