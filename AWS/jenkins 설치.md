@@ -60,7 +60,7 @@ docker run -d -p 9090:8080 -p 50000:50000 --restart=always -v /var/jenkins:/var/
 
 ### JAVA 11로 설치
 ```bash
-docker run -d -p 9090:8080 -p 50000:50000 --restart=always -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -u root jenkins/jenkins:lts-jdk1
+docker run -d -p 9090:8080 -p 50000:50000 --restart=always -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -u root jenkins/jenkins:lts-jdk11
 
 # 이미지 링크 https://hub.docker.com/r/jenkins/jenkins
 ```
