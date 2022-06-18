@@ -99,7 +99,7 @@ public class Team{
 ### @ManyToOne
 |속성|기능|기본값|
 |:---|:---|:---|
-|optional|false로 설정하면 연관도니 엔티티가 항상 있어햐 한다.|true|
+|optional|false로 설정하면 연관된 엔티티가 항상 있어햐 한다.|true|
 |fetch|글로벌 패치 전략을 설정한다.(N+1) 문제|@ManyToOne=FetchType.EAGER @OneToMany=FetchType.LAZY|
 |cascade|영속성 전이 기능을 사용한다.||
 |targetEntity|연관된 엔티티의 타입 정보를 설정한다. 이 기능은 거의 사용하지 않는다. 컬렉션을 사용해도 제너릭으로 타입정보를 알 수 있다.||
