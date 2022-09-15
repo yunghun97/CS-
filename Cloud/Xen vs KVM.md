@@ -1,6 +1,31 @@
-# 🥴 Xen vs KVM
+# 🥴 KVM vs Xen & OpenStack vs CloudStack
 
-## ☁ Xen
+
+## 🌦 KVM(Kernel-based Virtual Machine)
+- 리눅스 커널을 기반으로 만들어진 전가상화 오픈소스 하이퍼바이저입니다.
+- Type-1(전가상화)으로 서버에 직접 하이퍼바이저를 설치하는 형식을 말합니다.
+- Intel VT(Virtualization Technology) 또는 AMD-V 같은 가상화 기술을 지원하는 CPU가 있어야합니다.
+- 
+
+
+## ☁ Xen  
+- 오픈소스 하이퍼바이저
+- 초기에는 대표적인 반가상화 하이퍼바이저 였지만 **HVM(하드웨어 기반 가상화)** 기능을 활용하여 전가상화도 지원한다.
+  
+![image](https://user-images.githubusercontent.com/71022555/190321017-673d5bcf-aeee-49c2-83fa-dfb96978a545.png)  
+  
+- 도메인(Domain)은 Xen 환경에서 동작하고 있는 가상머신을 의미합니다.  
+    - Dom0 : 실제 물리 디바이스와 통신하기 위한 디바이스 드라이브가 존재하는 가상화된 시스템이라고 보면 된다.
+    - 다시 정리하면, 실제 하드웨어와 연결되는 디바이스 드라이브를 가지고 다른 도메인들을 제어하는 Guest OS인 것이다.
+    - DomU : 특권이 없는(Unprivileged)(하드웨어에 접근할 수 없는) 나머지 도메인 DomU라고 한다.
+
+### 동작 원리
+1. 각 도메인(DomU)은 Hypercall로 Xen 하이퍼바이저에게 입/출력 요청을 하게 되고, Xen 하이퍼바이저는 이를 Dom0에게 전달한다.
+2. Dom0는 받은 요청을 실제 Device에 전달하고 이런 방식으로 실제 장치와 입/출력을 하게 된다.
+
+
+
+
 
 ## ⛈ OpenStack
 ```
@@ -47,13 +72,14 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 
 ### KT CLOUD(기준)
 
-### G1, G2(Cloud Stack)
-- scale out만 지원
-
 ### D1(OpenStack)
 - scale up, scale out 둘 다 지원
 - OpenStack 기반 IOT, 빅데이터, 인메모리 분석 등 고급 기술 지원 및 도입을 위한 가상화 환경을 제공
 - 월 추가 비용이 필요함(30만/월)
+
+
+### G1, G2(Cloud Stack)
+- scale out만 지원
   
 |기능|D1(OpenStack)|G1, G2(CloudStack)|
 |:---:|:---:|:---:|
@@ -64,3 +90,7 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 |AI Studio|O|X|
 |DevOps Suite|O|O|
 |Container|O|X|
+
+
+##### 참고자료
+##### https://suyeon96.tistory.com/54
