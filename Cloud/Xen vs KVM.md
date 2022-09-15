@@ -60,7 +60,7 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 |Server|O|O|
 |High Memory Server|O|O|
 |인프라 부가서비스|O|O|
-|Data Lake|O||
+|Data Lake|O|O|
 |AI Studio|O|X|
 |DevOps Suite|O|O|
 |Container|O|X|
