@@ -57,10 +57,10 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
   
 |기능|D1(OpenStack)|G1, G2(CloudStack)|
 |:---:|:---:|:---:|
-|Server|O|X|
-|High Memory Server|O|X|
-|인프라 부가서비스|O|X|
-|Data Lake|O|X|
+|Server|O|O|
+|High Memory Server|O|O|
+|인프라 부가서비스|O|O|
+|Data Lake|O||
 |AI Studio|O|X|
-|DevOps Suite|O|X|
+|DevOps Suite|O|O|
 |Container|O|X|
