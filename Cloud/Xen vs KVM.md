@@ -7,6 +7,11 @@
 - Intel VT(Virtualization Technology) 또는 AMD-V 같은 가상화 기술을 지원하는 CPU가 있어야합니다.
 - 
 
+### Qemu
+- Qemu는 가상화 솔루션이지만 Hypervisor 보다는 에뮬레이터라고 말하는 것이 정확한 표현이다.
+- KVM-Qemu는 대부분 같이 사용을 하는데 가상화 + 에뮬레이션의 효과를 얻기 위해 사용한다고 예상 됨 OR HVM을 위해?(향후 추가 예정)
+- 일반적인 성능은 에뮬레이터가 가상화보다는 성능이 낮으므로 Qemu < KVM
+
 
 ## ☁ Xen  
 - 오픈소스 하이퍼바이저
@@ -86,7 +91,7 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 |Server|O|O|
 |High Memory Server|O|O|
 |인프라 부가서비스|O|O|
-|Data Lake|O|O|
+|Data Lake|O|X|
 |AI Studio|O|X|
 |DevOps Suite|O|O|
 |Container|O|X|
@@ -94,3 +99,6 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 
 ##### 참고자료
 ##### https://suyeon96.tistory.com/54
+##### https://blog.naver.com/alice_k106/221179347223
+##### https://www.joinc.co.kr/w/Site/cloud/Qemu/Basic
+##### 
