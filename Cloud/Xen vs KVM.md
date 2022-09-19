@@ -20,10 +20,12 @@
 ![image](https://user-images.githubusercontent.com/71022555/190321017-673d5bcf-aeee-49c2-83fa-dfb96978a545.png)  
   
 - 도메인(Domain)은 Xen 환경에서 동작하고 있는 가상머신을 의미합니다.  
-    - Dom0 : 실제 물리 디바이스와 통신하기 위한 디바이스 드라이브가 존재하는 가상화된 시스템이라고 보면 된다.
-    - 다시 정리하면, 실제 하드웨어와 연결되는 디바이스 드라이브를 가지고 다른 도메인들을 제어하는 Guest OS인 것이다.
-    - DomU : 특권이 없는(Unprivileged)(하드웨어에 접근할 수 없는) 나머지 도메인 DomU라고 한다.
-
+    - Dom0 : 실제 물리 디바이스와 통신하기 위한 디바이스 드라이브가 존재하는 가상화된 시스템이라고 보면 된다. Hypervisor 위에서 작동하는 VM으로 가상화를 위한 Host가 동작하는 환경을 의미
+    - Dom0(Domain0) : 하이퍼바이저를 제어하고 다른 게스트 운영 체제를 시작하는 역할을 합니다.
+    - DomU(Domain Unit) : 특권이 없는(Unprivileged)(하드웨어에 접근할 수 없는) 나머지 도메인 DomU라고 한다. 게스트 시스템(OS)가 동작하는 것
+      - PVM Guest : Linux와 같이 가상화에 맞게 수정된 OS
+      - HVM Guest : 주로 Windows OS 경우를 말하며 수정이 불가능한 OS로 PV 드라이버 설치 필요
+       
 ### 동작 원리
 1. 각 도메인(DomU)은 Hypercall로 Xen 하이퍼바이저에게 입/출력 요청을 하게 되고, Xen 하이퍼바이저는 이를 Dom0에게 전달한다.
 2. Dom0는 받은 요청을 실제 Device에 전달하고 이런 방식으로 실제 장치와 입/출력을 하게 된다.
@@ -69,6 +71,7 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 
 |분류|OpenStack|CloudStack|
 |:---:|:---:|:---:|
+|개발언어|Python|주(Java) 보조(Python)|
 |설치 시간|느림(1~3일)|빠름(2시간)|
 |문서화|비교적 별로|비교적 나음|
 |커뮤니티|많음|적음|
@@ -100,5 +103,5 @@ Application Programming Interface(API)를 이욯여 각 서비스 통합을 쉽�
 ##### 참고자료
 ##### https://suyeon96.tistory.com/54
 ##### https://blog.naver.com/alice_k106/221179347223
-##### https://www.joinc.co.kr/w/Site/cloud/Qemu/Basic
-##### 
+##### https://www.joinc.co.kr/w/Site/cloud/Qemu/Basic  
+
